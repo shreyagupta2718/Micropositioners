@@ -31,24 +31,6 @@ from System.Text import StringBuilder
 
 ########################### Global variables ###############################
 
-# stage map: Maps the motorized stages' names to values the code can work with. tuples are (channel, axis). The motor controller 
-# can only send commands to one channel at a time, but it can send commands to multiple axes on the same channel. 
-# For this reason we wish to have x and y linear stages on the same channel so that we can control them simultaneously using 
-# arrow keys. 
-stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
-
-#axis_speeds: Current speed; initialized to slow, slow, very slow for x,y,z. Lowest -> highest: 1,2,3,4.  
-axis_speeds = dict({'x':2,'y':2,'z':1})
-
-# runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
-# False otherwise. 
-runnable = False # arbitrary value that is neither true nor false. When runnable has this value, we know that Initializer()
-                 # has not been called yet. ???
-
-#jogspeed       = 0
-#measuredposition = 0
-#positivestepamplitude = 0
-
 # Defined below are several "speed_list" variables. speed_list contains the text that will appear in the
 # drop-down menu from which a speed is selected. The actual speed settings that the motor controller accepts
 # are integers 1 to 4. They are mapped to their corresponding "level" of speed in speed_list_dict.
@@ -58,6 +40,27 @@ speed_list = ["Very slow", "Slow", "Fast", "Very fast"]
 speed_list_dict = ({"Very slow":1,"Slow":2,"Fast":3,"Very fast":4})
 speed_list_z = ["Very slow", "Slow"]
 speed_list_dict_z = ({"Very slow":1,"Slow":2})
+
+# stage map: Maps the motorized stages' names to values the code can work with. tuples are (channel, axis). The motor controller 
+# can only send commands to one channel at a time, but it can send commands to multiple axes on the same channel. 
+# For this reason we wish to have x and y linear stages on the same channel so that we can control them simultaneously using 
+# arrow keys. 
+stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
+
+#axis_speeds is initialized to slow, slow, very slow for x,y,z. Lowest -> highest: 1,2,3,4.  
+init_x = "Slow"
+init_y = "Slow"
+init_z = "Very slow"
+axis_speeds = dict({'x':speed_list_dict[init_x],'y':speed_list_dict[init_y],'z':speed_list_dict[init_z]})
+
+# runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
+# False otherwise. 
+runnable = False # arbitrary value that is neither true nor false. When runnable has this value, we know that Initializer()
+                 # has not been called yet. ???
+
+#jogspeed       = 0
+#measuredposition = 0
+#positivestepamplitude = 0
 
 ########################### Helpers ########################################
 
@@ -335,7 +338,7 @@ x_speed_frame.grid(column=1,row=0,padx=20,pady=10)
 stage_label = tk.Label(x_speed_frame,text="Horizontal stage 1")
 stage_label.grid()
 x_speed_value = tk.StringVar(root)
-x_speed_value.set("slow") # Set the default value of the speed selection tab
+x_speed_value.set(init_x) # Set the default value of the speed selection tab
 x_speed_select = tk.OptionMenu(x_speed_frame, x_speed_value, *speed_list,command=lambda selection:manage_speeds('x',speed_list_dict[selection]))
 x_speed_select.config(width=13)
 x_speed_select.grid()
@@ -353,7 +356,7 @@ y_speed_frame.grid(column=1,row=1,padx=20,pady=10)
 stage_label = tk.Label(y_speed_frame,text="Horizontal stage 2")
 stage_label.grid()
 y_speed_value = tk.StringVar(root)
-y_speed_value.set("slow") # Set the default value of the speed selection tab
+y_speed_value.set(init_y) # Set the default value of the speed selection tab
 y_speed_select = tk.OptionMenu(y_speed_frame, y_speed_value, *speed_list,command=lambda selection:manage_speeds('y',speed_list_dict[selection]))
 y_speed_select.config(width=13)
 y_speed_select.grid()
@@ -374,7 +377,7 @@ z_speed_frame.grid(column=1,row=3,padx=20,pady=10)
 stage_label = tk.Label(z_speed_frame,text="Vertical stage")
 stage_label.grid()
 z_speed_value = tk.StringVar(root)
-z_speed_value.set("very slow") # Set the default value of the speed selection tab
+z_speed_value.set(init_z) # Set the default value of the speed selection tab
 z_speed_select = tk.OptionMenu(z_speed_frame, z_speed_value, *speed_list_z,command=lambda selection:manage_speeds('z',speed_list_dict[selection]))
 z_speed_select.config(width=13)
 z_speed_select.grid()
