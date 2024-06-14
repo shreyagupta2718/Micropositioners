@@ -45,9 +45,9 @@ axis_speeds = dict({'x':1,'y':1,'z':1})
 runnable = False # arbitrary value that is neither true nor false. When runnable has this value, we know that Initializer()
                  # has not been called yet. ???
 
-jogspeed       = 0
-measuredposition = 0
-positivestepamplitude = 0
+#jogspeed       = 0
+#measuredposition = 0
+#positivestepamplitude = 0
 
 ########################### Helpers ########################################
 
@@ -69,15 +69,15 @@ def OpenFirstValidDevice () :
 # <summary>
 # This function gets the jog speed of the specified axis.
 # </summary>
-def GetJogSpeed():
-    global jogspeed
-    bStatus,jogspeed = oCmdLib.GetJogMode(nAxis,jogspeed)
+# def GetJogSpeed():
+#     global jogspeed
+#     bStatus,jogspeed = oCmdLib.GetJogMode(nAxis,jogspeed)
     
-    if (bStatus):
-        return True
+#     if (bStatus):
+#         return True
     
-    print ("ERROR! Could not get the jog speed.\n")
-    return False
+#     print ("ERROR! Could not get the jog speed.\n")
+#     return False
 
 # <summary>
 # This function sets the jog speed of the specified axis.
