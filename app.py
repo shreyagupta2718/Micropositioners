@@ -37,8 +37,8 @@ from System.Text import StringBuilder
 # arrow keys. 
 stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
 
-#axis_speeds: Available speed options for the linear stages. Lowest -> highest: 1,2,3,4.  
-axis_speeds = dict({'x':1,'y':1,'z':1})
+#axis_speeds: Current speed; initialized to slow, slow, very slow for x,y,z. Lowest -> highest: 1,2,3,4.  
+axis_speeds = dict({'x':2,'y':2,'z':1})
 
 # runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
 # False otherwise. 
@@ -335,7 +335,7 @@ x_speed_frame.grid(column=1,row=0,padx=20,pady=10)
 stage_label = tk.Label(x_speed_frame,text="Horizontal stage 1")
 stage_label.grid()
 x_speed_value = tk.StringVar(root)
-x_speed_value.set("Select a speed.") # Set the default value of the speed selection tab
+x_speed_value.set("slow") # Set the default value of the speed selection tab
 x_speed_select = tk.OptionMenu(x_speed_frame, x_speed_value, *speed_list,command=lambda selection:manage_speeds('x',speed_list_dict[selection]))
 x_speed_select.config(width=13)
 x_speed_select.grid()
@@ -353,7 +353,7 @@ y_speed_frame.grid(column=1,row=1,padx=20,pady=10)
 stage_label = tk.Label(y_speed_frame,text="Horizontal stage 2")
 stage_label.grid()
 y_speed_value = tk.StringVar(root)
-y_speed_value.set("Select a speed.") # Set the default value of the speed selection tab
+y_speed_value.set("slow") # Set the default value of the speed selection tab
 y_speed_select = tk.OptionMenu(y_speed_frame, y_speed_value, *speed_list,command=lambda selection:manage_speeds('y',speed_list_dict[selection]))
 y_speed_select.config(width=13)
 y_speed_select.grid()
@@ -374,7 +374,7 @@ z_speed_frame.grid(column=1,row=3,padx=20,pady=10)
 stage_label = tk.Label(z_speed_frame,text="Vertical stage")
 stage_label.grid()
 z_speed_value = tk.StringVar(root)
-z_speed_value.set("Select a speed.") # Set the default value of the speed selection tab
+z_speed_value.set("very slow") # Set the default value of the speed selection tab
 z_speed_select = tk.OptionMenu(z_speed_frame, z_speed_value, *speed_list_z,command=lambda selection:manage_speeds('z',speed_list_dict[selection]))
 z_speed_select.config(width=13)
 z_speed_select.grid()
