@@ -37,7 +37,7 @@ from System.Text import StringBuilder
 # arrow keys. 
 stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
 
-#axis_speeds: Available speed options for the linear stages. Lowest -> highest: 1,2,4,3.  
+#axis_speeds: Available speed options for the linear stages. Lowest -> highest: 1,2,3,4.  
 axis_speeds = dict({'x':1,'y':1,'z':1})
 
 # runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
@@ -48,6 +48,16 @@ runnable = False # arbitrary value that is neither true nor false. When runnable
 #jogspeed       = 0
 #measuredposition = 0
 #positivestepamplitude = 0
+
+# Defined below are several "speed_list" variables. speed_list contains the text that will appear in the
+# drop-down menu from which a speed is selected. The actual speed settings that the motor controller accepts
+# are integers 1 to 4. They are mapped to their corresponding "level" of speed in speed_list_dict.
+# speed_list_z and speed_list_dict_z do a similar thing, but only with the two lowest speeds. This is because
+# having a high speed for the vertical motorized stage risks damaging the sample or microscope objective lens.
+speed_list = ["Very slow", "Slow", "Fast", "Very fast"]
+speed_list_dict = ({"Very slow":1,"Slow":2,"Fast":3,"Very fast":4})
+speed_list_z = ["Very slow", "Slow"]
+speed_list_dict_z = ({"Very slow":1,"Slow":2})
 
 ########################### Helpers ########################################
 
@@ -314,16 +324,6 @@ def emergency_stop_button():
             print("Stop_All_Motion() failed in emergency_stop_button!!")
     except:
         print("AN ERROR OCCURRED IN emergency_stop_button!")
-    
-# Defined below are several "speed_list" variables. speed_list contains the text that will appear in the
-# drop-down menu from which a speed is selected. The actual speed settings that the motor controller accepts
-# are integers 1 to 4. They are mapped to their corresponding "level" of speed in speed_list_dict.
-# speed_list_z and speed_list_dict_z do a similar thing, but only with the two lowest speeds. This is because
-# having a high speed for the vertical motorized stage risks damaging the sample or microscope objective lens.
-speed_list = ["Very slow", "Slow", "Fast", "Very fast"]
-speed_list_dict = ({"Very slow":1,"Slow":2,"Fast":4,"Very fast":3})
-speed_list_z = ["Very slow", "Slow"]
-speed_list_dict_z = ({"Very slow":1,"Slow":2})
 
 ##################################  x motion  ##################################
 move_x_right = tk.Button(root,text='>',bg='white')
