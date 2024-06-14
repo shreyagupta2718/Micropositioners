@@ -1,3 +1,36 @@
+######################## Imports ##############################
+
+import sys
+import os
+import inspect
+# Import the .NET Common Language Runtime (CLR) to allow interaction with .NET
+import clr
+import numpy as np
+import time
+
+print ("Python %s\n\n" % (sys.version,))
+
+strCurrFile = os.path.abspath (inspect.stack()[0][1])
+print ("Executing File = %s\n" % strCurrFile)
+
+# Initialize the DLL folder path to where the DLLs are located
+strPathDllFolder = os.path.dirname (strCurrFile)
+print ("Executing Dir  = %s\n" % strPathDllFolder)
+
+# Add the DLL folder path to the system search path (before adding references)
+sys.path.append (strPathDllFolder)
+
+# Add a reference to each .NET assembly required
+clr.AddReference ("CmdLibAgilis")
+clr.AddReference ("VCPIOLib")
+
+# Import a class from a namespace
+from Newport.Motion.CmdLibAgilis import *
+from Newport.VCPIOLib import *
+from System.Text import StringBuilder
+
+########################### Global variables ###############################
+
 # stage map: Maps the motorized stages' names to values the code can work with. tuples are (channel, axis). The motor controller 
 # can only send commands to one channel at a time, but it can send commands to multiple axes on the same channel. 
 # For this reason we wish to have x and y linear stages on the same channel so that we can control them simultaneously using 
@@ -16,42 +49,7 @@ jogspeed       = 0
 measuredposition = 0
 positivestepamplitude = 0
 
-##################################################################################
-## The code below follows the sample code provided by Newport in the AG-LS25-27
-## software download package. 
-##################################################################################
-import sys
-import os
-import inspect
-# Import the .NET Common Language Runtime (CLR) to allow interaction with .NET
-import clr
-import numpy as np
-import time
-
-print ("Python %s\n\n" % (sys.version,))
-
-strCurrFile = os.path.abspath (inspect.stack()[0][1])
-print ("Executing File = %s\n" % strCurrFile)
-##################################################################################
-## The code below follows the sample code provided by Newport in the AG-LS25-27
-## soft
-# Initialize the DLL folder path to where the DLLs are located
-strPathDllFolder = os.path.dirname (strCurrFile)
-print ("Executing Dir  = %s\n" % strPathDllFolder)
-
-# Add the DLL folder path to the system search path (before adding references)
-sys.path.append (strPathDllFolder)
-
-# Add a reference to each .NET assembly required
-clr.AddReference ("CmdLibAgilis")
-clr.AddReference ("VCPIOLib")
-
-# Import a class from a namespace
-from Newport.Motion.CmdLibAgilis import *
-from Newport.VCPIOLib import *
-from System.Text import StringBuilder
-
-################################################### FUNCTION DEFINITIONS ###################################################
+########################### Helpers ########################################
 
 # <summary>
 # This method opens the first valid device in the list of discovered devices.
@@ -104,6 +102,8 @@ def StopTheJogging(nAxis):
     print("ERROR! Could not stop jogging!\n")
     return False
 
+############################ Open device, start communication ##############################
+
 # <summary>
 # Initializer: When called, checks if any valid devices are connected and opens the first one. IF MULTIPLE DEVICES CONNECTED
 # THIS MAY HAVE TO BE CHANGED! (e.g. if camera is also connected-> test this out!???)
@@ -147,12 +147,10 @@ def Initializer():
         else :
             print ("Could not open the device.\n")
 
-    #print ("Shutting down.")
-    # Shut down all communication
-    #oDeviceIO.Shutdown ()
     return runnable
 
-################################################### MAIN BODY BEGINS HERE ###################################################
+############################# Helpers to start and stop motion #########################
+
 # <summary>
 # Starts motion along input axis in input direction at input speed
 # Returns True if motion started successfully, False otherwise.
@@ -222,6 +220,10 @@ def Stop_All_Motion():
     else:
         print('ERROR! Command to end all motion failed! THIS SHOULD NEVER BE PRINTED!!.')
     return runnable4
+
+###################################################################################################
+######################################### TKINTER  GUI ############################################
+###################################################################################################
 
 import tkinter as tk
 import tkinter.font as font
