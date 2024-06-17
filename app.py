@@ -36,10 +36,11 @@ from System.Text import StringBuilder
 # are integers 1 to 4. They are mapped to their corresponding "level" of speed in speed_list_dict.
 # speed_list_z and speed_list_dict_z do a similar thing, but only with the two lowest speeds. This is because
 # having a high speed for the vertical motorized stage risks damaging the sample or microscope objective lens.
+######### TODO: Change z options back to only very slow and slow for above reason!!!
 speed_list = ["Very slow", "Slow", "Fast", "Very fast"]
 speed_list_dict = ({"Very slow":1,"Slow":2,"Fast":3,"Very fast":4})
-speed_list_z = ["Very slow", "Slow"]
-speed_list_dict_z = ({"Very slow":1,"Slow":2})
+speed_list_z = ["Very slow", "Slow", "Fast", "Very fast"]
+speed_list_dict_z = ({"Very slow":1,"Slow":2,"Fast":3,"Very fast":4})
 
 # stage map: Maps the motorized stages' names to values the code can work with. tuples are (channel, axis). The motor controller 
 # can only send commands to one channel at a time, but it can send commands to multiple axes on the same channel. 
@@ -50,7 +51,7 @@ stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
 #axis_speeds is initialized to slow, slow, very slow for x,y,z. Lowest -> highest: 1,2,3,4.  
 init_x = "Slow"
 init_y = "Slow"
-init_z = "Very fast"
+init_z = "Very slow"
 axis_speeds = dict({'x':speed_list_dict[init_x],'y':speed_list_dict[init_y],'z':speed_list_dict[init_z]})
 
 # runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
