@@ -347,7 +347,7 @@ move_x_left = tk.Button(root,text='left',bg='white')
 move_x_left['font'] = thefont
 move_x_left.grid(column=0,row=0,ipadx=1,ipady=1)
 ##################################  y motion  ##################################
-move_y_right = tk.Button(root,text='>',bg='white')
+move_y_right = tk.Button(root,text='in',bg='white')
 move_y_right['font'] = thefont
 move_y_right.grid(column=2,row=1,ipadx=1,ipady=1)
 
@@ -361,7 +361,7 @@ y_speed_select = tk.OptionMenu(y_speed_frame, y_speed_value, *speed_list,command
 y_speed_select.config(width=13)
 y_speed_select.grid()
 
-move_y_left = tk.Button(root,text='<',bg='white')
+move_y_left = tk.Button(root,text='out',bg='white')
 move_y_left['font'] = thefont
 move_y_left.grid(column=0,row=1,ipadx=1,ipady=1)
 
