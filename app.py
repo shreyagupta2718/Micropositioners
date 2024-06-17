@@ -329,7 +329,7 @@ def emergency_stop_button():
         print("AN ERROR OCCURRED IN emergency_stop_button!")
 
 ##################################  x motion  ##################################
-move_x_right = tk.Button(root,text='>',bg='white')
+move_x_right = tk.Button(root,text='right',bg='white')
 move_x_right['font'] = thefont
 move_x_right.grid(column=2,row=0,ipadx=1,ipady=1)
 
@@ -343,7 +343,7 @@ x_speed_select = tk.OptionMenu(x_speed_frame, x_speed_value, *speed_list,command
 x_speed_select.config(width=13)
 x_speed_select.grid()
 
-move_x_left = tk.Button(root,text='<',bg='white')
+move_x_left = tk.Button(root,text='left',bg='white')
 move_x_left['font'] = thefont
 move_x_left.grid(column=0,row=0,ipadx=1,ipady=1)
 ##################################  y motion  ##################################
