@@ -50,7 +50,7 @@ stage_map   = dict({'x':(1,1),'y':(1,2),'z':(3,1)})
 #axis_speeds is initialized to slow, slow, very slow for x,y,z. Lowest -> highest: 1,2,3,4.  
 init_x = "Slow"
 init_y = "Slow"
-init_z = "Very slow"
+init_z = "Very fast"
 axis_speeds = dict({'x':speed_list_dict[init_x],'y':speed_list_dict[init_y],'z':speed_list_dict[init_z]})
 
 # runnable: A global variable which is True if the computer successfully connected to the AGU-C8 motor controller,
@@ -366,7 +366,7 @@ move_y_left['font'] = thefont
 move_y_left.grid(column=0,row=1,ipadx=1,ipady=1)
 
 ##################################  z motion  ##################################
-move_z_right = tk.Button(root,text='>',bg='white')
+move_z_right = tk.Button(root,text='down',bg='white')
 move_z_right['font'] = thefont
 move_z_right.grid(column=2,row=3,ipadx=1,ipady=1)
 move_z_right.bind('<ButtonPress-1>',lambda event:run_motor('z','positive'))
@@ -382,7 +382,7 @@ z_speed_select = tk.OptionMenu(z_speed_frame, z_speed_value, *speed_list_z,comma
 z_speed_select.config(width=13)
 z_speed_select.grid()
 
-move_z_left = tk.Button(root,text='<',bg='white')
+move_z_left = tk.Button(root,text='up',bg='white')
 move_z_left['font'] = thefont
 move_z_left.grid(column=0,row=3,ipadx=1,ipady=1)
 move_z_left.bind('<ButtonPress-1>',lambda event:run_motor('z','negative'))
